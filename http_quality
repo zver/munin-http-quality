@@ -57,7 +57,7 @@ MAX_REQUEST_TIME.colour COLOUR8
 
 multigraph http_request_codes$FILE_SUFFIX
 graph_args --base 1000 -l 0
-graph_vlabel Count per 5 minutes
+graph_vlabel Percent for 5 minutes
 graph_title HTTP request codes$TITLE_SUFFIX
 graph_category http
 
