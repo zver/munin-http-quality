@@ -15,15 +15,15 @@
 
 К примеру в nginx этоможно сделать следующим образом
 
-log_format track_quality "$request_time $status";
-access_log  /var/log/nginx/quality_upload.log track_quality;
+log_format track_quality "$request_time $status";  
+access_log  /var/log/nginx/quality_upload.log track_quality;  
 
 Плагин позволяет создать разные группы графиков для нескольких
 лог-файлов. Для этого симлинк, указываюзий на исполняемый файл плагина 
 должен содержать в конце через символ подчеркивания ключевое слово.
 Например,
 
-ln -s /usr/share/munin/plugins/http_quality http_quality_upload
+ln -s /usr/share/munin/plugins/http_quality http_quality_upload  
 
 В файле настроек плагина (/etc/munin/plugin-conf.d/http_quality_upload.conf)
 необходимо указать пользователя, который будет иметь доступ к записи 
@@ -31,9 +31,9 @@ ln -s /usr/share/munin/plugins/http_quality http_quality_upload
 
 Например,
 
-[http_quality_upload]
-user root
-env.QUALITY_LOG /var/log/nginx/quality_upload.log
+[http_quality_upload]  
+user root  
+env.QUALITY_LOG /var/log/nginx/quality_upload.log  
 
 В данном примере параметр QUALITY_LOG позволяет указать путь до
 лог-файла.

@@ -11,8 +11,8 @@ Settings
 First of all, you should configure your web-server for write logs in
 specific format. For example, nginx config:
 
-log_format track_quality "$request_time $status";
-access_log  /var/log/nginx/quality_upload.log track_quality;
+log_format track_quality "$request_time $status";  
+access_log  /var/log/nginx/quality_upload.log track_quality;  
 
 The plugin allow to create separate groups of graphs for different
 logs. You should use slug name at end of executable plugin name. For
@@ -26,8 +26,8 @@ have rights for write to log dir and log file.
 
 Example:
 
-[http_quality_upload]
-user root
-env.QUALITY_LOG /var/log/nginx/quality_upload.log
+[http_quality_upload]  
+user root  
+env.QUALITY_LOG /var/log/nginx/quality_upload.log  
 
 As you can see, you can specify custom path to log file too.
