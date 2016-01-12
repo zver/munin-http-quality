@@ -98,16 +98,16 @@ max < $1 { max = $1 }
 / 2/ { c2 = c2 + 1 }
 
 END {
-printf "multigraph http_request_time%s", FILE_SUFFIX;
-printf "AVG_REQUEST_TIME.value %s", s/FNR;
-printf "MIN_REQUEST_TIME.value %s", min;
-printf "MAX_REQUEST_TIME.value %s", max;
+printf "multigraph http_request_time%s\n", FILE_SUFFIX;
+printf "AVG_REQUEST_TIME.value %s\n", s/FNR;
+printf "MIN_REQUEST_TIME.value %s\n", min;
+printf "MAX_REQUEST_TIME.value %s\n", max;
 
-printf "multigraph http_request_codes%s", FILE_SUFFIX;
-printf "code5xx.value %s", 100*c5/FNR;
-printf "code4xx.value %s", 100*c4/FNR;
-printf "code3xx.value %s", 100*c3/FNR;
-printf "code2xx.value %s", 100*c2/FNR;
+printf "multigraph http_request_codes%s\n", FILE_SUFFIX;
+printf "code5xx.value %s\n", 100*c5/FNR;
+printf "code4xx.value %s\n", 100*c4/FNR;
+printf "code3xx.value %s\n", 100*c3/FNR;
+printf "code2xx.value %s\n", 100*c2/FNR;
 }
 
 ' $SNAP_LOG | tee $LAST_VALUE_FILE
