@@ -29,7 +29,7 @@ LAST_VALUE_FILE=/run/http_quality${FILE_SUFFIX}.last
 if [ "$1" == "config" ]; then
 	echo "
 multigraph http_request_time$FILE_SUFFIX
-graph_title HTTP avg request time$TITLE_SUFFIX
+graph_title HTTP request time$TITLE_SUFFIX
 graph_args --base 1000 -l 0
 graph_vlabel s
 graph_category http
@@ -54,6 +54,13 @@ MAX_REQUEST_TIME.info Average time for requests
 MAX_REQUEST_TIME.min 0
 MAX_REQUEST_TIME.draw LINE1
 MAX_REQUEST_TIME.colour COLOUR8
+
+PERCENTILE95.label 95th percentile time
+PERCENTILE95.type GAUGE
+PERCENTILE95.info 95th percentile time for requests
+PERCENTILE95.min 0
+PERCENTILE95.draw LINE1
+PERCENTILE95.colour COLOUR4
 
 multigraph http_request_codes$FILE_SUFFIX
 graph_args --base 1000 -l 0 --upper-limit 100
@@ -83,7 +90,9 @@ fi
 cat $QUALITY_LOG > $SNAP_LOG
 cat /dev/null > $QUALITY_LOG
 
-awk -v FILE_SUFFIX="$FILE_SUFFIX" -v max=0 '
+p95=`sort -n $SNAP_LOG | awk 'BEGIN {i=0} {s[i]=$1; i++;} END {print s[int(NR*0.95-0.5)]}'`
+
+awk -v FILE_SUFFIX="$FILE_SUFFIX" -v max=0 -v p95="$p95" '
 
 NR == 1 { min = $1 }
 NR > 1 && $1 < min { min = $1 }
@@ -102,6 +111,7 @@ printf "multigraph http_request_time%s\n", FILE_SUFFIX;
 printf "AVG_REQUEST_TIME.value %s\n", s/FNR;
 printf "MIN_REQUEST_TIME.value %s\n", min;
 printf "MAX_REQUEST_TIME.value %s\n", max;
+printf "PERCENTILE95.value %s\n", p95;
 
 printf "multigraph http_request_codes%s\n", FILE_SUFFIX;
 printf "code5xx.value %s\n", 100*c5/FNR;
