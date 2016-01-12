@@ -4,6 +4,9 @@ The plugin calc information from log file. Main feature of the plugin
 is analyze logs records between starts this plugin and erase log after
 it. It is very helpfull for save free space on disks when you have many queries.
 
+Also the plugin write last values to file /run/http_quality_${SLUG}.last. You
+can use it for integrate with other systems and avoid clean logs.
+
 
 Settings
 ====================
