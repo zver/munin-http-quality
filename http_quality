@@ -114,10 +114,18 @@ printf "MAX_REQUEST_TIME.value %s\n", max;
 printf "PERCENTILE95.value %s\n", p95;
 
 printf "multigraph http_request_codes%s\n", FILE_SUFFIX;
-printf "code5xx.value %s\n", 100*c5/FNR;
-printf "code4xx.value %s\n", 100*c4/FNR;
-printf "code3xx.value %s\n", 100*c3/FNR;
-printf "code2xx.value %s\n", 100*c2/FNR;
+if ( FNR == 0 ) {
+    print "code5xx.value 0";
+    print "code4xx.value 0";
+    print "code3xx.value 0";
+    print "code2xx.value 0";
+} else {
+    printf "code5xx.value %s\n", 100*c5/FNR;
+    printf "code4xx.value %s\n", 100*c4/FNR;
+    printf "code3xx.value %s\n", 100*c3/FNR;
+    printf "code2xx.value %s\n", 100*c2/FNR;
+}
+
 }
 
 ' $SNAP_LOG | tee $LAST_VALUE_FILE
