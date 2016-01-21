@@ -114,6 +114,9 @@ if ( FNR == 0 ) {
         cp4 = 0;
         cp3 = 0;
         cp2 = 0;
+        min = 0;
+        max = 0;
+        p95 = 0;
 } else {
         avg = s/FNR;
         cp5 = 100*c5/FNR;
